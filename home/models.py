@@ -11,3 +11,7 @@ class Contact(models.Model):
     content = models.TextField()
     timeStamp = models.DateTimeField(auto_now_add=True, blank=True)
  
+
+    def __str__(self):
+        return 'Message From ' + self.name
+ 
