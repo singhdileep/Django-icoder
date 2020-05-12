@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from home.models import Contact
+from django.contrib import messages
 #from datetime import datetime
 
 # Create your views here.
@@ -15,9 +16,16 @@ def contact(request):
         email = request.POST['email']
         phone = request.POST['phone']
         content = request.POST['content']
-        print(name,email,phone,content)
-        contact = Contact(name=name,email=email,phone=phone,content=content)
-        contact.save()
+        # print(name,email,phone,content)
+        # This condition is writted for alert messages after submiting the contact form
+        
+        if len(name)<2 or len(email)<2 or len(phone)<10 or len(content)<3:
+            messages.error(request,"Please fill the Detail correctly!")
+        else:    
+            contact = Contact(name=name,email=email,phone=phone,content=content)
+            contact.save()
+            messages.success(request,"Your Detail has been submitted successfully ")
+
 
     return render(request,'home/contact.html')
 
