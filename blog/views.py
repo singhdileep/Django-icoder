@@ -1,4 +1,5 @@
 from django.shortcuts import render,HttpResponse
+from blog.models import Post
 
 # Create your views here.
 
@@ -6,7 +7,10 @@ from django.shortcuts import render,HttpResponse
 
 
 def blogHome(request):
-    return render(request, 'blog/blogHome.html')
+    allPosts = Post.objects.all()
+    context ={'allPosts':allPosts}
+    print(allPosts)
+    return render(request, 'blog/blogHome.html',context)
     # return HttpResponse("This is blog Home we will keep  all post here..") 
 
 def blogPost(request,slug):
