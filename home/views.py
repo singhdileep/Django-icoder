@@ -8,7 +8,9 @@ from blog.models import Post
 
 
 def home(request):
-    return render(request,'home/home.html')
+    allPosts = Post.objects.all()
+    context ={'allPosts':allPosts}
+    return render(request,'home/home.html',context)
     # return HttpResponse("This is home page")
 
 def contact(request):
@@ -38,8 +40,15 @@ def about(request):
 
 def search(request):
     query = request.GET['query']
+    if len(query)>70:
+        allPosts = Post.objects.none()
+    else:
     # allPosts = Post.objects.all()
-    allPosts = Post.objects.filter(title__icontains=query)
-    params = {'allPosts':allPosts}
+        allPostsTitle = Post.objects.filter(title__icontains=query)
+        allPostsContent = Post.objects.filter(content__icontains=query)
+        allPosts = allPostsTitle.union(allPostsContent)
+    if allPosts.count() == 0:
+        messages.warning(request,"No Results found. Please refine your query!")
+    params = {'allPosts':allPosts,'query':query}
     # return HttpResponse("this is search page")
     return render(request,'home/search.html',params)
