@@ -9,10 +9,13 @@ from blog.models import Post
 def blogHome(request):
     allPosts = Post.objects.all()
     context ={'allPosts':allPosts}
-    print(allPosts)
+    # print(allPosts)
     return render(request, 'blog/blogHome.html',context)
     # return HttpResponse("This is blog Home we will keep  all post here..") 
 
 def blogPost(request,slug):
-    return render(request,'blog/blogPost.html')
+    post = Post.objects.filter(slug=slug).first()
+    print(post)
+    context = {'post':post}
+    return render(request,'blog/blogPost.html',context)
     # return HttpResponse(f'This is blog:{slug}')     
