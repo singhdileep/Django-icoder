@@ -1,6 +1,8 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse , redirect
 from home.models import Contact
 from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.models import User
 from blog.models import Post
 #from datetime import datetime
 
@@ -52,3 +54,62 @@ def search(request):
     params = {'allPosts':allPosts,'query':query}
     # return HttpResponse("this is search page")
     return render(request,'home/search.html',params)
+
+def handleSignup(request):
+    # Get the post parameters
+    if request.method == 'POST':
+        username = request.POST['username']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        pass1 = request.POST['pass1']
+        pass2 = request.POST['pass2']
+        
+        # check for errorneous inputs
+        if len(username) > 10:
+            messages.error(request,"User mube be under 10 character")
+            return redirect("home")
+        
+        # user should be alphanumeric
+        if not username.isalnum():
+            messages.error(request,"User should only contain letter and number ") 
+            return redirect("home")
+       
+        # password should match
+        if pass1 != pass2:  
+            messages.error(request,"Password do not match ")
+            return redirect("home")     
+
+        # create the user
+        myuser = User.objects.create_user(username,email,pass1)
+        myuser.first_name = fname
+        myuser.last_name = lname
+        myuser.save()
+        messages.success(request,"Your account has been successfully created.")
+        return redirect("home")
+    else:
+        return HttpResponse("404 - Not found ")  
+
+def handleLogin(request):
+     # Get the post parameters
+    if request.method == 'POST':
+        loginusername = request.POST['loginusername']
+        loginpass = request.POST['loginpass']
+
+        user = authenticate(username=loginusername,password=loginpass)
+        if user is not None:
+            login(request,user)
+            messages.success(request,"Successfully Logged In")
+            return redirect("home") 
+        else:
+            messages.error(request,"Invalid Credentials, Please try again")
+            return redirect("home")           
+    return HttpResponse("404 - Not found ")  
+    
+
+def handleLogout(request):
+    logout(request)
+    messages.success(request,"Successfully Logout ")
+    return redirect("home")        
+
+

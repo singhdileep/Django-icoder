@@ -82,37 +82,38 @@ Signup</button>
         </button>
       </div>
       <div class="modal-body">
-       <form>
+       <form action="/signup" method="post">
+       {% csrf_token %}
   <div class="form-group">
     <label for="exampleFormControlInput1"> Username</label>
-    <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique user Name">
+    <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique user Name(lower case and Alphanumeric" required>
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">First Name</label>
-    <input type="fname" class="form-control" id="fname" name="fname" placeholder="First Name">
+    <input type="fname" class="form-control" id="fname" name="fname" placeholder="First Name" required>
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Last Name</label>
-    <input type="lname" class="form-control" id="lname" name="lname" placeholder="Last Name">
+    <input type="lname" class="form-control" id="lname" name="lname" placeholder="Last Name" required>
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlInput1">Email address</label>
-    <input type="email" class="form-control" id="email" name="email" placeholder="Email@example.com">
+    <input type="email" class="form-control" id="email" name="email" placeholder="Email@example.com" required>
   </div>
 
   <div class="form-group">
-    <label for="pass1">Password </label>
-    <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose your password">
+    <label for="pass1">Password </label> required
+    <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose your password" required>
   </div>
   
    <div class="form-group">
     <label for="pass2">Confirm Password </label>
-    <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter your password again">
+    <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter your password again" required>
   </div>
-          <button type="button" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
  </div>
@@ -134,7 +135,9 @@ Signup</button>
         </button>
       </div>
       <div class="modal-body">
-       <form>
+       <form action="/login" method="post">
+              {% csrf_token %}
+
   <div class="form-group">
     <label for="exampleFormControlInput1"> Username</label>
     <input type="text" class="form-control" id="loginusername" name="loginusername" placeholder="Enter User Name">
@@ -142,11 +145,11 @@ Signup</button>
 
   <div class="form-group">
     <label for="pass">Enter Password </label>
-    <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter your password">
+    <input type="password" class="form-control" id="loginpass" name="loginpass" placeholder="Enter your password">
   </div>
   
    
-          <button type="button" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
  </div>
