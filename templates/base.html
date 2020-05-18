@@ -38,7 +38,8 @@
                 </li>
                 
             </ul>
-            <form action="/search" method="get" class="form-inline my-2 my-lg-0">
+            <div class="ml-auto form-inline">
+            <form action="/search" method="get" class=" my-2 my-lg-0">
             {% csrf_token %}
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" name="query"id="query" aria-label="Search">
                 <button class="btn btn-outline-success mr-2 my-2 my-sm-0" type="submit">Search</button>
@@ -46,7 +47,19 @@
             {% comment %} <a href="/admin" role="button" target="_blank" class="btn btn-outline-success m-2 my-sm-0" >Admin Panel</a> {% endcomment %}
 
           
+{% if user.is_authenticated %}
+ <ul class="navbar-nav mr-2">
+   <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Welcome {{request.user}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/logout">Logout</a>
+        </div>
+      </li>
 
+</ul>
+{%else%}
 <!-- Button trigger Login modal -->
 <button type="button" class="btn btn-outline-success mr-2" data-toggle="modal" data-target="#loginModal">
 Login</button>
@@ -54,8 +67,9 @@ Login</button>
  <!-- Button trigger signup modal -->
 <button type="button" class="btn btn-outline-success mr-2" data-toggle="modal" data-target="#signupModal">
 Signup</button>
-
-        </div>
+{% endif %}
+</div>
+ </div>
     </nav>
     <!-- This loop is for sending the alert message after submitting the contact form -->
 
