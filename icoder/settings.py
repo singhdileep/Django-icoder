@@ -126,6 +126,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+# configuration of static file 
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,"static"),
+]
+
+
 # Adding dictionary for overriding the messages as per user requirement
 
 MESSAGE_TAGS = {
