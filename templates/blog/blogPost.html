@@ -14,6 +14,14 @@
 </div>
 <div class="container">
 <h3>Comments</h3>
+<form action="/blog/postComment" method="post">
+{% csrf_token %}
+    <input type="text" name="comment" placeholder="Enter comment here">
+    <input type="hidden" name="postSno" value="{{post.sno}}">
+     <input type="submit" value="submit">
+
+
+</form>
 <div class="row my-2">
     <div class="col-md-2 bg-success">image here </div>
     <div class="col-md-10 bg-primary">comment here </div>
