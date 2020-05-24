@@ -29,9 +29,19 @@ def postComment(request):
         user = request.user
         postSno = request.POST.get("postSno") 
         post = Post.objects.get(sno=postSno) 
-        comment = BlogComment(comment=comment,user=user,post=post)
-        comment.save()
-        messages.success(request,"Your post has been posted Successfully")
+        parentSno = request.POST.get("parentSno") 
+        if parentSno == "":
+            comment = BlogComment(comment=comment,user=user,post=post)
+            comment.save()
+            messages.success(request,"Your comment has been posted Successfully")
+        
+        else:
+            parent = BlogComment.objects.get(sno=parentSno)
+            # print(parent)
+            comment = BlogComment(comment=comment,user=user,post=post,parents=parent)
+            print(comment)
+            comment.save()
+            messages.success(request,"Your reply has been posted Successfully")
         
 
 
