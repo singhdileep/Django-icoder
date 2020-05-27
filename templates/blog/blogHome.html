@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 {% block title %} blogHome {% endblock title %}
+{% block js %}
+
+{% comment %} Script for showing the tilte in correct fromat  {% endcomment %}
+<script>
+let previews = document.getElementsByClassName('preview');
+    Array.from(previews).forEach((element)=>{
+    element.innerHTML = element.innerText;
+
+})
+
+
+</script>
+
+
+
+{% endblock js%}
+
 
 {% block blogactive %} active {% endblock blogactive %}
 
@@ -13,8 +30,8 @@
         <div class="col p-4 d-flex flex-column position-static">
           <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}</strong>
           <h3 class="mb-0"><a class ="text-dark" href="/blog/{{post.slug}}"> {{post.title}} </a></h3>
-          <div class="mb-1 text-muted">{{post.timeStamp}} </div>
-          <p class="card-text mb-auto">{{post.content | truncatechars:300}}</p>
+          {% comment %} <div class="mb-1 text-muted">{{post.timeStamp}} </div> {% endcomment %}
+          <p class="card-text mb-auto"><div class="preview">{{post.content|safe|truncatechars:300}}</div></p>
           <div class="my-2">
           <a href="/blog/{{post.slug}}" role="button" class="btn btn-success">Continue reading</a>
           </div>

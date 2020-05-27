@@ -27,7 +27,7 @@ def blogPost(request,slug):
         else:
             replyDict[reply.parents.sno].append(reply)  
 
-    print(replyDict)
+    # print(replyDict)
 
     context = {'post':post,'comments':comments,'user':request.user,'replyDict':replyDict}
     return render(request,'blog/blogPost.html',context)
@@ -50,7 +50,7 @@ def postComment(request):
             parent = BlogComment.objects.get(sno=parentSno)
             # print(parent)
             comment = BlogComment(comment=comment,user=user,post=post,parents=parent)
-            print(comment)
+            # print(comment)
             comment.save()
             messages.success(request,"Your reply has been posted Successfully")
         

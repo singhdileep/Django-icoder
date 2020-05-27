@@ -12,14 +12,14 @@
 <div class="container my-3">
     <h2 class="blog-post-title">{{post.title}}</h2>
     <p class="blog-post-meta">{{post.timeStamp}} by <a href="/about">{{post.author}}</a></p>
-    <p style=" padding: 10px; border: 1px solid #4CAF50;">{{post.content}}</p>
+    {% comment %} <p style=" padding: 10px; border: 1px solid #4CAF50;"> {% endcomment %}<p>{{post.content|safe}}</p> 
     <hr>
 </div>
 
  {% comment %} Created comments  {% endcomment %}
  
 <div class="container">
-<h3>Comments({{comments.count}})</h3>
+<h4>Comments({{comments.count}})</h4>
 <div class="my-2">
 {%if user.is_authenticated %}
 
