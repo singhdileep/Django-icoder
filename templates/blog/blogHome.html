@@ -31,7 +31,7 @@ let previews = document.getElementsByClassName('preview');
           <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}({{post.views}} Views)</strong>
           <h3 class="mb-0"><a class ="text-dark" href="/blog/{{post.slug}}"> {{post.title}} </a></h3>
           {% comment %} <div class="mb-1 text-muted">{{post.timeStamp}} </div> {% endcomment %}
-          <p class="card-text mb-auto"><div class="preview">{{post.content|safe|truncatechars:300}}</div></p>
+          <p class="card-text mb-auto"><div class="preview">{{post.content|safe|truncatechars:200}}</div></p>
           <div class="my-2">
           <a href="/blog/{{post.slug}}" role="button" class="btn btn-success">Continue reading</a>
           </div>
