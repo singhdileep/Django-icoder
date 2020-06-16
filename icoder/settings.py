@@ -76,6 +76,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'icoder.wsgi.application'
 
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = 'singhdileep321@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+MAIL_USE_SSL=True
+
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

@@ -1,5 +1,7 @@
 from django.shortcuts import render,HttpResponse , redirect
 from home.models import Contact
+from icoder.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -21,6 +23,8 @@ def contact(request):
         email = request.POST['email']
         phone = request.POST['phone']
         content = request.POST['content']
+        details="Name: "+name+"\n"+"Email: "+email+"\n"+"Contact: "+phone+"\n"+"Details: "+content
+        print(details)
         # print(name,email,phone,content)
         # This condition is writted for alert messages after submiting the contact form
         
@@ -29,11 +33,13 @@ def contact(request):
         else:    
             contact = Contact(name=name,email=email,phone=phone,content=content)
             contact.save()
+            send_mail('New Message from',details,EMAIL_HOST_USER,['singhdileep321@gmail.com'],fail_silently=False)
+            # send_mail('New Message from ' + 'This is for testing','singhdileep321@gmail.com',['singhdileep321@gmail.com'],fail_silently=False )
             messages.success(request,"Your Detail has been submitted successfully ")
 
 
     return render(request,'home/contact.html')
-
+  
 
 def about(request):
     return render(request,'home/about.html')
